@@ -1,5 +1,6 @@
-import { gql } from "apollo-server";
-import { ApolloServer } from "apollo-server";
+import { gql, ApolloServer, UserInputError } from "apollo-server";
+
+import { v1 as uuid } from "uuid";
 
 // local database 
 const persons = [
@@ -51,9 +52,9 @@ const typeDefs = gql`
         age: Int
         street: String!
         city: String!
-        canDrink: Boolean!
-        check: String!
-        address: Address!
+        canDrink: Boolean
+        check: String
+        address: Address
         id: ID!
     }
     
@@ -63,9 +64,17 @@ const typeDefs = gql`
         findPerson(name: String!): Person
     }
 
+    type Mutation {
+        addPerson(
+            name: String!
+            age: Int!
+            street: String!
+            city: String!
+        ): Person
+    }
 `
 
-// 2) resolvers
+// 2) resolvers 
 // resolver datos
 
 const resolvers = {
@@ -78,6 +87,26 @@ const resolvers = {
             return persons.find(person => person.name === name)
         }
     },
+
+    Mutation: {
+        addPerson: (root, args) => {
+            
+            if ( persons.find((p) => p.name === args.name) )
+            throw new UserInputError(
+                'Name nust be unique',
+                {
+                    invalidArgs: args.name
+                })   
+
+            const person = {...args, id: uuid()}
+
+            persons.push(person)
+
+            return person
+        }
+    },
+
+
     // Person: {
     //     name: (root) => root.name
     //     ...
@@ -94,6 +123,7 @@ const resolvers = {
         canDrink: (root) => root.age > 18
     }
 }
+
 
 // ApolloServer
 const server = new ApolloServer({

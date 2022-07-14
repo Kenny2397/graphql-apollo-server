@@ -2,6 +2,9 @@
 
 Es un lenguaje de consultas para APIS creado por facebook
 
+en graphql solo hay una entrada a la api 
+a diferencia de rest que va cambiando la url
+
 install
 
 `npm i apollo-server graphql`
@@ -98,3 +101,8 @@ en los resolvers se puede hacer la lógica que se haría en el frontend
 ayuda a resolver haciendo, lógica o no, entre las consultas que devuelve 
 
 ¿como puedes favorece preguntar por los datos?
+
+
+### Mutations
+
+Es para ingresar datos en GraphQL
