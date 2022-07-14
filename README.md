@@ -46,6 +46,8 @@ const resolvers = {
 
 El servidor de Apollo es la parte de GraphQL que se ejecuta en el servidor, funcionando a modo de interfaz entre el las peticiones entrantes y tu código backend, encargándose también de enviar de vuelta una respuesta a dichas peticiones.
 
+
+
 ```
 const server = new ApolloServer({
     typeDefs: typeDefs,
@@ -63,3 +65,28 @@ server.listen().then(({ url }) => {
   });
 ```
 
+### Query
+
+- Al buscar queries diferencia mayusculas y minusculas
+
+```
+query($name: String!) {
+  findPerson(name: $name) {
+    name
+    city
+  }
+}
+```
+variables Headers
+```
+{
+  "name": "Frank"
+}
+```
+
+### Como funciona un resolvers
+
+root : es lo que se ha resuelto antes "en la query"
+
+en los resolvers se puede hacer la lógica que se haría en el frontend 
+?averiguar si es recomendable o buena practica
