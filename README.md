@@ -6,6 +6,10 @@ install
 
 `npm i apollo-server graphql`
 
+nodemon
+
+`npx nodemon index.js`
+
 Steps
 
 ### 1) Describir los datos - typeDefs
@@ -90,3 +94,7 @@ root : es lo que se ha resuelto antes "en la query"
 
 en los resolvers se puede hacer la lógica que se haría en el frontend 
 ?averiguar si es recomendable o buena practica
+
+ayuda a resolver haciendo, lógica o no, entre las consultas que devuelve 
+
+¿como puedes favorece preguntar por los datos?

@@ -40,15 +40,20 @@ const persons = [
 // 1) Describir los datos
 //    Definiciones datos
 const typeDefs = gql`
+    type Address {
+        street: String!
+        city: String!
+    }
+
     type Person {
         name: String!
         phone: String
         age: Int
         street: String!
         city: String!
-        address: String!
         canDrink: Boolean!
         check: String!
+        address: Address!
         id: ID!
     }
     
@@ -78,7 +83,13 @@ const resolvers = {
     //     ...
     // }
     Person: {
-        address: (root) => `street: ${root.street}, city: ${root.city}`,
+        // address: (root) => `street: ${root.street}, city: ${root.city}`,
+        address: (root) => {
+            return {
+                street: root.street,
+                city: root.city
+            }
+        },
         check: () => "kenny",
         canDrink: (root) => root.age > 18
     }
